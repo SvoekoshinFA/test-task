@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    volumes:
+      - ./mssql/data/:/var/opt/mssql/data/
+    ports: 
+      - 1433:1433
+    expose: 
+      - 1433
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=abcDEF123#
+  back:  
+    build: ./back/
+    command: node server.js
+    volumes:
+      - ./back:/var/back
+      - /var/back/node_modules
+    ports: 
+      - 9000:9000
+    expose: 
+      - 9000
+    restart: always
+    depends_on:
+      - mssql
+    environment:
+      - DB_HOST=mssql
+      - DB_PORT=1433
+      - DB_USER=sa
+      - DB_PASSWORD=abcDEF123#
+      - DB_DB=test-task
+      - PORT=9000
+  front: 
+    build: ./front/
+    command: npm run serve
+    volumes:
+      - ./front:/var/front
+      - /var/front/node_modules
+    ports: 
+      - 80:8080
+    restart: always
+    depends_on:
+      - back
