@@ -27,12 +27,23 @@ services:
     depends_on:
       - mssql
     environment:
+      #SYSTEM
+      - DOMAIN=localhost
+      - PORT=9000
+      #DATABASE
       - DB_HOST=mssql
       - DB_PORT=1433
       - DB_USER=sa
       - DB_PASSWORD=abcDEF123#
       - DB_DB=test-task
-      - PORT=9000
+      #OAUTH
+      - OAUTH_CLIENT_ID=J5AavG7RmKfuqgubn-R1ne3C-dummy
+      - OAUTH_CLIENT_SECRET=w1GkreE3eGc_gIyOGiBsEUH7Nm0ENtv6XfiSo7QZErHlJjbQ-dummy
+      - OAUTH_HOST=https://oauth.mocklab.io/
+      - OAUTH_AUTHORIZE_PATH=/oauth/authorize
+      - OAUTH_TOKEN_PATH=/oauth/token
+      - OAUTH_SESSION_PATH=/oauth/userinfo
+
   front: 
     build: ./front/
     command: npm run serve

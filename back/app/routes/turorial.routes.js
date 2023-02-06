@@ -24,9 +24,6 @@ module.exports = app => {
   
     // Delete all Tutorials
     router.delete("/", tutorials.deleteAll);
-
-    //router.get("/file", jasper.get)
-
   
   
     app.use('/api/tutorials', router);

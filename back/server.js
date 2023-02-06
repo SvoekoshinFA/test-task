@@ -1,6 +1,8 @@
 //const https = require("https");
 //const fs = require("fs");
 
+console.log(process.env)
+const cookieParser = require('cookie-parser')
 const express = require("express");
 const cors = require("cors");
 
@@ -17,8 +19,7 @@ app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(express.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 // simple route
@@ -39,6 +40,7 @@ app.get("/redirect/", (req, res) => {
 });
 
 require("./app/routes/turorial.routes")(app);
+require("./app/routes/oauth.routes")(app);
 require("./app/routes/task.routes")(app);
 
 // set port, listen for requests
