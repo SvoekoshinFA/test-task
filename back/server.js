@@ -10,7 +10,7 @@ const db = require("./app/models");
 db.sequelize.sync();
 
 var corsOptions = {
-  origin: "http://localhost:9000"
+  origin: "http://localhost"
 };
 
 app.use(cors(corsOptions));
@@ -39,6 +39,7 @@ app.get("/redirect/", (req, res) => {
 });
 
 require("./app/routes/turorial.routes")(app);
+require("./app/routes/task.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 9000;
