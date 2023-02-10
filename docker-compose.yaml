@@ -55,3 +55,11 @@ services:
     restart: always
     depends_on:
       - back
+    environment:
+      #OAUTH
+      - OAUTH_CLIENT_ID=J5AavG7RmKfuqgubn-R1ne3C-dummy
+      - OAUTH_CLIENT_SECRET=w1GkreE3eGc_gIyOGiBsEUH7Nm0ENtv6XfiSo7QZErHlJjbQ-dummy
+      - OAUTH_HOST=https://oauth.mocklab.io/
+      - OAUTH_AUTHORIZE_PATH=/oauth/authorize
+      - OAUTH_TOKEN_PATH=/oauth/token
+      - OAUTH_SESSION_PATH=/oauth/userinfo

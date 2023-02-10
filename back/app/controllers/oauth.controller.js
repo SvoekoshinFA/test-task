@@ -21,6 +21,7 @@ exports.callback = async (req, res) => {
     });
     return;
   }
+  res.clearCookie("stage");
   const tokenParams = {
     code: req.query.code,
     redirect_uri: 'http://' + process.env.DOMAIN + ':' + process.env.PORT + '/oauth/callback'
@@ -28,9 +29,10 @@ exports.callback = async (req, res) => {
 
   try {
     const accessToken = await client.getToken(tokenParams);
-    res.send({
-      message: accessToken
-    });
+    
+    res.cookie('accessToken', JSON.stringify(accessToken), { maxAge: 86400, httpOnly: true });
+
+    res.redirect('http://localhost/workflow');
   } catch (error) {
     console.log(error);
     res.status(500).send(error);

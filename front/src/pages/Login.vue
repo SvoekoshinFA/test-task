@@ -1,41 +1,32 @@
 <template>
     <div v-if="authenticated">
-        Добро пожаловать {{ user.name }}
-        <button @click="logout()">Log out</button>
+        <Button @click="$router.push('/workflow')">Войти</Button>
     </div>
     <div v-else>
-        Надо залогиниться
-        <button @click="login">Login</button>
     </div>
+
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
-import {useLogin} from "@/hooks/useLogin";
-
 export default {
     data() {
         return {
-            user: {}
+            isLoading: true,
         }
     },
-    setup(props) {
-        const token = useLogin();
-        return token;
-    },
-    methods: {
-        ...mapMutations({
-            setUser: 'setUser',
-        }),
-    },
-  computed: {
-    ...mapState({
-      user: state => state.user,
-    }),
-    ...mapGetters({
-        authenticated: 'authenticated',
-    })
-  },
+    mounted() {
+        let authenticated = false;
+        if (!authenticated) {
+            window.location.href = 'https://oauth.mocklab.io/oauth/authorize\
+            ?response_type=code\
+            &client_id=J5AavG7RmKfuqgubn-R1ne3C\
+            &redirect_uri=http%3A%2F%2Flocalhost%2Fcallback\
+            &scope=photo%2Boffline_access\
+            &state=WBR9s14zSQctRghv\
+            &code_challenge_method=S256\
+            &code_challenge=hiJThlv7JVkjXX2AszjQtUW4F2WwR0XbNd16scPbVLg';
+        }
+    }
 }
 </script>
 

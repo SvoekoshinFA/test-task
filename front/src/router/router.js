@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 import Index from "@/pages/Index";
 import Login from "@/pages/Login";
+import Callback from "@/pages/Callback";
 import Workflow from "@/pages/Workflow";
 
 
@@ -12,6 +13,10 @@ const routes = [
     {
         path: '/login',
         component: Login
+    },
+    {
+        path: '/callback',
+        component: Callback
     },
     {
         path: '/workflow',
