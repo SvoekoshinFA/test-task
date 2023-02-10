@@ -35,7 +35,7 @@ services:
       - DB_PORT=1433
       - DB_USER=sa
       - DB_PASSWORD=abcDEF123#
-      - DB_DB=test-task
+      - DB_DB=tempdb
       #OAUTH
       - OAUTH_CLIENT_ID=J5AavG7RmKfuqgubn-R1ne3C-dummy
       - OAUTH_CLIENT_SECRET=w1GkreE3eGc_gIyOGiBsEUH7Nm0ENtv6XfiSo7QZErHlJjbQ-dummy

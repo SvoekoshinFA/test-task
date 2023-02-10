@@ -1,8 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 import Index from "@/pages/Index";
-import Login from "@/pages/Login";
-import Callback from "@/pages/Callback";
 import Workflow from "@/pages/Workflow";
+import Session from "@/pages/Session";
 
 
 const routes = [
@@ -11,16 +10,24 @@ const routes = [
         component: Index
     },
     {
-        path: '/login',
-        component: Login
-    },
-    {
-        path: '/callback',
-        component: Callback
+        path: '/session',
+        component: Session
     },
     {
         path: '/workflow',
         component: Workflow
+    },
+    {
+        path: '/performer',
+        component: Performer
+    },
+    {
+        path: '/line_manager',
+        component: LineManager
+    },
+    {
+        path: '/activity_manager',
+        component: ActivityManager
     }
 ]
 

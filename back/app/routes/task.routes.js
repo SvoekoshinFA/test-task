@@ -4,9 +4,11 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    router.get("/", task.findAll);
+    router.get("/search", task.search);
   
-    router.get("/:id", task.findOne);
+    router.get("/worklog/:id", task.worklog);
+  
+    router.get("/session/:id", task.session);
   
     app.use('/rest/api/task', router);
   };
