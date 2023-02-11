@@ -1,7 +1,6 @@
 //const https = require("https");
 //const fs = require("fs");
 
-console.log(process.env)
 const cookieParser = require('cookie-parser')
 const express = require("express");
 const cors = require("cors");
@@ -17,33 +16,19 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-// simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
-
-app.get("/redirect/", (req, res) => {
-
-  fetch("https://atlassian.example.com/rest/oauth2/latest/authorize?client_id=Md9m4iPONyE0wVWJQ4Bv2qAvZT4CCweJ&redirect_uri=test.depressive.fun&response_type=ATOAiMg6AavU-MbP0jqBy6kDvZB5-RrxHQ4MwKhJNxpuWc_70EoMM1gkPR4iaaAWbd17F90B5F31&state=STATE&scope=SCOPE&code_challenge=CODE_CHALLENGE&code_challenge_method=S256")
-  .then((response) => {console.log(response); return response.json();})
-  .then((data) => res.send(data))
-  .catch(err => {
-    res.status(500).send({
-      message: "Error redirect with " + err,
-    });
-  });
+  res.json({ message: "Welcome" });
 });
 
 require("./app/routes/turorial.routes")(app);
 require("./app/routes/oauth.routes")(app);
 require("./app/routes/task.routes")(app);
+require("./app/routes/document.routes")(app);
 
-// set port, listen for requests
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

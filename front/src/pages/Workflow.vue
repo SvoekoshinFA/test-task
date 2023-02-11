@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     async getTaskList() {
-      console.log(this);
       try {
         this.taskList = [];
         this.isTaskLoading = true;

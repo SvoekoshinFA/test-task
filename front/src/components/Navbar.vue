@@ -1,6 +1,9 @@
 <template>
   <div class="navbar">
     <div class="navbar__btns">
+      <my-button style="margin-left: 20px" @click="$router.push('/performer')">Исполнитель</my-button>
+      <my-button style="margin-left: 20px" @click="$router.push('/line_manager')">Линейный руководитель</my-button>
+      <my-button style="margin-left: 20px" @click="$router.push('/activity_manager')">Менеджер деятельности</my-button>
       <my-button style="margin-left: 20px" @click="$router.push('/workflow')">Поиск</my-button>
       <my-button style="margin-left: 20px" @click="$router.push('/session')">О пользователе</my-button>
     </div>

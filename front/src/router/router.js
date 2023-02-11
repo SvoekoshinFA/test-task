@@ -2,6 +2,9 @@ import {createRouter, createWebHistory} from "vue-router";
 import Index from "@/pages/Index";
 import Workflow from "@/pages/Workflow";
 import Session from "@/pages/Session";
+import Performer from "@/pages/Performer";
+import LineManager from "@/pages/LineManager";
+import ActivityManager from "@/pages/ActivityManager";
 
 
 const routes = [
