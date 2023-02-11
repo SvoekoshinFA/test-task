@@ -24,7 +24,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome" });
 });
 
-require("./app/routes/turorial.routes")(app);
 require("./app/routes/oauth.routes")(app);
 require("./app/routes/task.routes")(app);
 require("./app/routes/document.routes")(app);

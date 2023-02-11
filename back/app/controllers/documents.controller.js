@@ -60,17 +60,16 @@ exports.findAll = (req, res) => {
         });
 };
 
-// Find a single Tutorial with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.findByPk(id)
+    Document.findByPk(id)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Tutorial with id=" + id
+                message: "Error retrieving Document with id=" + id
             });
         });
 };
@@ -84,17 +83,17 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was updated successfully."
+                    message: "Document was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                    message: `Cannot update Document with id=${id}. Maybe Document was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Tutorial with id=" + id
+                message: "Error updating Document with id=" + id
             });
         });
 };
@@ -119,37 +118,6 @@ exports.delete = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message: "Could not delete Document with id=" + id
-            });
-        });
-};
-
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
-    Tutorial.destroy({
-        where: {},
-        truncate: false
-    })
-        .then(nums => {
-            res.send({ message: `${nums} Tutorials were deleted successfully!` });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while removing all tutorials."
-            });
-        });
-};
-
-// Find all published Tutorials
-exports.findAllPublished = (req, res) => {
-    Tutorial.findAll({ where: { published: true } })
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving tutorials."
             });
         });
 };

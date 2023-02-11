@@ -7,15 +7,11 @@ module.exports = app => {
   
     router.get("/", documents.findAll);
   
-    router.get("/published", documents.findAllPublished);
-  
     router.get("/:id", documents.findOne);
   
     router.put("/:id", documents.update);
   
     router.delete("/:id", documents.delete);
-  
-    router.delete("/", documents.deleteAll);
     
     app.use('/rest/api/document', router);
   };
