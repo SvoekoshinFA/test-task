@@ -37,6 +37,7 @@
         <div v-if="stage == 'list'">
             <table>
                 <tr>
+                    <th class="cell" style="width: 15vw">Сотрудник</th>
                     <th class="cell" style="width: 15vw">Номер Акта</th>
                     <th class="cell" style="width: 15vw">Вид работ</th>
                     <th class="cell" style="width: 15vw">Начало</th>
@@ -46,6 +47,7 @@
                     <th class="cell" style="width: 15vw">Управление</th>
                 </tr>
                 <tr v-for="doc in list">
+                    <td class="cell" style="width: 15vw">{{ users.find(el => el.id == doc.user).name }}</td>
                     <td class="cell" style="width: 15vw">{{ doc.number }}</td>
                     <td class="cell" style="width: 15vw">{{ doc.type }}</td>
                     <td class="cell" style="width: 15vw">{{ doc.begin }}</td>
@@ -54,7 +56,8 @@
                     <td class="cell" style="width: 15vw">{{ doc.status }}</td>
                     <td class="cell" style="width: 15vw">
                         <my-button style="margin-left: 20px" @click="download">Скачать</my-button>
-                        <my-button v-if="doc.status != 'подтвержден'" style="margin-left: 20px" @click="deleteDoc(doc.id)">Удалить</my-button>
+                        <my-button v-if="doc.status == 'новый' || doc.status == 'отклонён'" style="margin-left: 20px"
+                            @click="deleteDoc(doc.id)">Удалить</my-button>
                     </td>
                 </tr>
             </table>
@@ -66,6 +69,9 @@
 import axios from "axios";
 
 export default {
+    mounted() {
+        this.loadList();
+    },
     data() {
         return {
             stage: 'list',
@@ -75,7 +81,12 @@ export default {
             end: '',
             date: new Date(Date.now()).toISOString().split('T')[0],
             errors: [],
-            list: {}
+            list: {},
+            users: [
+                { id: 12345, name: "Иванов И.И." },
+                { id: 23456, name: "Петров П.П." },
+                { id: 34567, name: "Сидоров С.С." }
+            ]
         }
     },
     methods: {
@@ -125,6 +136,7 @@ export default {
             }
         },
         async loadList() {
+            this.errors = [];
             try {
                 const response = await axios.get('http://localhost:9000/rest/api/document', {
                     params: {

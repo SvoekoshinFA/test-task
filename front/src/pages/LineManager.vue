@@ -14,7 +14,10 @@
         <div v-if="stage == 'form'">
             <div class="form__input">
                 <label>Сотрудник</label>
-                <my-select v-model="user" :options="users" />
+                <select v-model="user" class="input">
+                    <option disabled value=''>Выберите сотрудника</option>
+                    <option v-for="u in users" :key="u.id" :value="u.id">{{ u.name }}</option>
+                </select>
             </div>
             <div class="form__input">
                 <label>Номер акта</label>
@@ -60,8 +63,10 @@
                     <td class="cell" style="width: 15vw">{{ doc.status }}</td>
                     <td class="cell" style="width: 15vw">
                         <my-button style="margin-left: 20px" @click="download">Скачать</my-button>
-                        <my-button v-if="doc.status != 'подтвержден'" style="margin-left: 20px"
-                            @click="deleteDoc(doc.id)">Удалить</my-button>
+                        <my-button v-if="doc.status == 'новый' || doc.status == 'отклонён'" style="margin-left: 20px"
+                            @click="updateDoc(doc.id, 'подтвержден')">Подтвердить</my-button>
+                        <my-button v-if="doc.status == 'новый' || doc.status == 'подтвержден'" style="margin-left: 20px"
+                            @click="updateDoc(doc.id, 'отклонён')">Отклонить</my-button>
                     </td>
                 </tr>
             </table>
@@ -73,10 +78,13 @@
 import axios from "axios";
 
 export default {
+    mounted(){
+        this.loadList();
+    },
     data() {
         return {
             stage: 'list',
-            user: '12345',
+            user: '',
             number: '',
             type: '',
             begin: '',
@@ -102,9 +110,12 @@ export default {
         download() {
             alert('TO DO');
         },
-        async deleteDoc(id) {
+        async updateDoc(id, newStatus) {
+            this.errors = [];
             try {
-                const response = await axios.delete('http://localhost:9000/rest/api/document/' + id, {});
+                const response = await axios.put('http://localhost:9000/rest/api/document/' + id, {
+                    status: newStatus
+                });
                 this.getList();
             } catch (e) {
                 console.log('ERROR', e)
@@ -139,6 +150,7 @@ export default {
             }
         },
         async loadList() {
+            this.errors = [];
             try {
                 const response = await axios.get('http://localhost:9000/rest/api/document', {
                     params: {
@@ -177,5 +189,9 @@ td {
 
 .cell {
     padding: 5px;
+}
+.input {
+  border: 1px solid teal;
+  padding: 10px 10px;
 }
 </style>
