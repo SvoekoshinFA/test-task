@@ -6,6 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
+  "author": "Svoekoshin Filipp",
+  "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
