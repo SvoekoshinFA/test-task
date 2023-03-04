@@ -9,5 +9,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Build the Docker Compose
-      run: ls -lah
+    - name: Update APT
+      run: sudo apt update
+    - name: install Docker
+      run: |
+        sudo apt install apt-transport-https ca-certificates curl software-properties-common
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+        sudo apt update
+        sudo apt install docker-ce
+        sudo systemctl status docker
+    - name: install Docker Compose
+      run: |
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        
+    - name: install Git
+      run: |
+        sudo apt install -y git
+    - name: Upload repo
+      run: |
+        git clone https://github.com/SvoekoshinFA/test-task.git
+        cd test-task
+    - name: Start Docker
+      run: docker-compose up
